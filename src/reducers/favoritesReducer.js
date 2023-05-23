@@ -17,10 +17,18 @@ const reducer = (state = initialState, action) => {
         displayFavorites: !state.displayFavorites,
       };
     case ADD_FAVORITE:
-      return {
-        ...state,
-        favorites: [...state.favorites, action.payload],
-      };
+      const isMovieAlreadyAdded = state.favorites.find(
+        (favorite) => favorite.id === action.payload.id
+      );
+      if (isMovieAlreadyAdded) {
+        alert("film zaten favorilere ekli.");
+        return state;
+      } else {
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload],
+        };
+      }
     case REMOVE_FAVORITE:
       return {
         ...state,
